@@ -1,0 +1,73 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "Java",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	//"image": "mcr.microsoft.com/devcontainers/java:21-bookworm",
+    "dockerFile": "Dockerfile",
+
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "none",
+			"installMaven": "true",
+			"mavenVersion": "3.9.6",
+			"installGradle": "false"
+		}
+	},
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			"settings": {},
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-java-debug",
+                "vscjava.vscode-maven",
+				"vscjava.vscode-java-dependency",
+				// Spring
+				"vscjava.vscode-spring-initializr",
+				"vscjava.vscode-spring-boot-dashboard",
+				"vmware.vscode-spring-boot",
+				// Git
+				"eamodio.gitlens"
+			]
+		}
+	},
+
+    "mounts": [
+		//"type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh,readonly",
+		//"type=bind,source=/home/${localEnv:USER}/.m2,target=/home/vscode/.m2",
+		"source=devc-java-extensions,target=/root/.vscode-server/extensions,type=volume",
+		"source=devc-java-m2,target=/home/vscode/.m2,type=volume"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"runArgs": [
+		// devcontainer name for docker container
+		//"--name=${localEnv:USER}_devc_java",
+		//"--name=devc-java",
+		// user privilege
+		"--userns=keep-id",
+		"--privileged"
+	],
+	"containerUser": "vscode",
+	"containerEnv": {
+		"HOME": "/home/vscode",
+		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current",
+		"MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current"
+	},
+	"remoteUser": "root",
+	"remoteEnv": {
+		"HOME": "/home/vscode",
+		"JAVA_HOME": "/usr/lib/jvm/msopenjdk-current",
+		"MAVEN_HOME": "/usr/local/sdkman/candidates/maven/current"
+	}
+}
